@@ -1,8 +1,12 @@
+
 import dotenv from 'dotenv';
 import express from 'express';
 import tasksRouter from './api/tasks';
+//... other imports
+import usersRouter from './api/users';
 import './db';
 import cors from 'cors';
+
 
 dotenv.config();
 
@@ -30,6 +34,9 @@ app.use(
 app.use(express.json());
 
 app.use('/api/tasks', tasksRouter);
+
+//Users router
+app.use('/api/users', usersRouter);
 
 app.use(errHandler);
 
