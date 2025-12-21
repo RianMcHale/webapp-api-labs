@@ -1,44 +1,50 @@
-
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import tasksRouter from './api/tasks';
-//... other imports
-import usersRouter from './api/users';
-import './db';
-import cors from 'cors';
-
 
 dotenv.config();
 
+import tasksRouter from './api/tasks';
+import usersRouter from './api/users';
+import './db';
+import authenticate from './api/tasks/authenticate';
+
 const errHandler = (err, req, res, next) => {
-  if (process.env.NODE_ENV === 'production') {
-    return res.status(500).send(`Something went wrong!`);
+  if (!res.headersSent) {
+    if(process.env.NODE_ENV === 'production') {
+      return res.status(500).json({ success: false, msg: 'Something went wrong!' });
+    }
+    return res.status(500).json({ 
+      success: false, 
+      msg: err?.message || 'Internal server error'
+    });
   }
-  res
-    .status(500)
-    .send(`Hey!! You caught the error 👍👍. Here's the details: ${err.stack} `);
+  
+  if (typeof next === 'function') {
+    next(err);
+  }
 };
+
 
 const app = express();
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 
-app.use(
-  cors({
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type'],
-  })
-);
+// Enable CORS for all requests
+app.use(cors());
 
 app.use(express.json());
 
-app.use('/api/tasks', tasksRouter);
+app.use('api/tasks',authenticate, tasksRouter);
 
-//Users router
 app.use('/api/users', usersRouter);
 
 app.use(errHandler);
+
+if (!process.env.MONGO_DB) {
+  console.error('ERROR: MONGO_DB environment variable is not set!');
+  process.exit(1);
+}
 
 app.listen(port, () => {
   console.info(`Server running at ${port}`);

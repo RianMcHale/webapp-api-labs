@@ -1,12 +1,12 @@
 import express from 'express';
-import Task from './taskModel';
+import Task from './taskModel.js';
 import asyncHandler from 'express-async-handler';
 
 const router = express.Router(); // eslint-disable-line
 
-// Get all tasks
-router.get('/', async (req, res) => {
-    const tasks = await Task.find();
+// Get a user's tasks
+router.get('/user/:uid', async (req, res) => {
+    const tasks = await Task.find({ userId: `${req.params.uid}`});
     res.status(200).json(tasks);
 });
 
