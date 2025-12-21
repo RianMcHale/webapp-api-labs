@@ -17,25 +17,36 @@ h1 {
 div {
   padding: 20px;
 }
-
 .container{
   text-align: center;
 }
-
 .card {
   display: inline-block;
   vertical-align: top;
   font-family: system-ui;
   background: #5bb4c4;
-  color: #fff;
+  color: white;
   text-align: center;
-  width: 240px;           
-  min-height: 280px;     
-  margin: 16px;
-  padding: 18px 16px 56px;
+  width: 180px;
+  height: 240px;
+  margin: 10px;
+  padding: 10px;
   position: relative;
-  border-radius: 10px;
 }
+.title {
+  font-weight: bold;
+  font-size: 1.2em; 
+}
+
+.description{
+  font-style: italic;
+  font-size: 1.2em; 
+}
+.priority{
+  font-weight: bold;
+  font-size: 1.2em; 
+}
+
 button {
   border: none;
   border-radius: 3px;
@@ -60,36 +71,7 @@ button {
   color: red;
 }
 
-.title {
-  font-weight: bold;
-  font-size: 1.2em; 
-}
-
-.priority-badge {
-  display: inline-block;
-  width: 100%;
-  padding: 10px 0;
-  border-radius: 12px;
-  font-weight: 700;
-  text-align: center;
-  color: #fff;
-  margin: 14px 0 22px;
-}
-
-.priority { 
-  color: inherit; 
-  font-style: italic; 
-  font-weight: bolder; 
-}
-
-
-.description {
-  font-style: italic;
-  color: pink;
-  font-weight: bold;
-}
-
-input[type=text], input[type=date] {
+input[type=text], input[type=date], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -118,4 +100,42 @@ form {
   text-align: left;
   width: 50%;
   margin: auto;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4f4f4f;
+  padding: 0rem 2rem;
+  color: white;
+}
+
+.left-section {
+  display: flex;
+  align-items: baseline; /* Align children to baseline */
+  gap: 1.5rem;
+}
+
+.home-link {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.nav-links a:hover, .home-link:hover {
+  text-decoration: underline;
 }
